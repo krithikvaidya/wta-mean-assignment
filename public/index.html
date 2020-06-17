@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Employee Appraisal</title>
+  <link rel="icon" href="employees.png" sizes="16x16" type="image/png"> 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/ngProgress.css">
+  <link rel="stylesheet" href="css/toaster.css">
+  <link rel="stylesheet" href="css/main.css">
+<style>
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+display: none !important;
+}
+</style>
+</head>
+<body ng-cloak>
+
+  <div class="jumbotron card card-image" style="margin-bottom: -100px; padding-bottom: -100px; background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
+    <div class="text-white text-center py-3 px-4">
+      <div>
+        <h2 class="card-title h1-responsive pt-3 mb-5 font-bold"><strong>Employee Appraisal System</strong></h2>
+      </div>
+    </div>
+</div>
+
+  <div class="container bg main-form" style="margin-top: -100px; padding-top: -100px; background-color: #ffffff;" ng-controller="EmpCtrl">
+    <div class="text-center">
+      <button class="btn btn-success" style="margin-bottom: 5px;" ng-click="ShowFill()">Write an Appraisal</button>
+      <button class="btn btn-success" style="margin-bottom: 5px;" ng-click="ShowResult()">View Previous Appraisals</button>
+      <span></span>
+    </div>
+    
+    <!--Fill form Part-->
+    <div class="card text-white bg-info" ng-show='fillCtrl' style="margin-top: 45px;">
+    <div class="card-header" style="text-align: center;">
+      <h3 style="text-align: center;"><strong>Employee Appraisal Form</strong></h3>
+    </div>
+    <div class="card-body">
+
+    <h4 style="text-align: center;"><strong>Evaluation Type</strong></h4><br>
+
+    <div class="form-check" style="margin-left: 20px;">
+      <input class="form-check-input" type="radio" name="eval_type" ng-model="emp.eval_type" value="Monthly" required="">
+      <label class="form-check-label" for="exampleRadios1">
+        Monthly
+      </label>
+    </div>
+
+    <div class="form-check" style=" margin-left: 20px;">
+      <input class="form-check-input" type="radio"name="eval_type" ng-model="emp.eval_type" value="Quarterly"  required="">
+      <label class="form-check-label" for="exampleRadios1">
+        Quarterly
+      </label>
+    </div>
+
+    <div class="form-check"  style=" margin-left: 20px;margin-bottom: 20px;">
+      <input class="form-check-input" type="radio" name="eval_type" ng-model="emp.eval_type" value="Yearly" required="">
+      <label class="form-check-label" for="exampleRadios1">
+        Yearly
+      </label>
+    </div>
+
+    <br>
+  
+    <h4 style="text-align: center;"><strong>1. Employee Details</strong></h4>
+
+    <form name="AppraisalForm" novalidate>
+
+      <h4></h4>
+      <div class="form-group card-body">
+        <label for="EmpName">Employee Identification</label>
+        <input type="text" class="form-control" ng-model="emp.emp_id" required="true" placeholder="Enter Employee Identfication">
+      </div>
+
+      <div class="form-group card-body" style="margin-top: -20px;">
+        <label for="EmpName">Employee Name</label>
+        <input type="text" class="form-control" ng-model="emp.emp_name" required="true" placeholder="Enter Employee Name">
+      </div>
+
+      <div class="form-group card-body" style="margin-top: -20px;">
+        <label for="EmpName">Employee Department</label>
+        <input type="text" class="form-control" ng-model="emp.department" required="true" placeholder="Enter Employee's Deparment">
+      </div>
+      
+      <br>
+
+      <h4 style="text-align: center;"><strong>2. Manager Details</strong></h4>
+
+      <div class="form-group card-body">
+        <label for="EmpName">Employee's Manager's ID</label>
+        <input type="text" class="form-control" ng-model="emp.manager_id" required="true" placeholder="Enter Employee' Manager's Name">
+      </div>
+
+      <div class="form-group card-body" style="margin-top: -20px; margin-bottom: 30px;">
+        <label for="EmpName" style="margin-top: -100px;">Employee's Manager's Name</label>
+        <input type="text" class="form-control" ng-model="emp.manager_name" required="true" placeholder="Enter Employee' Manager's Identification">
+      </div>
+
+      <h4 style="text-align: center;"><strong>3. Review of Employee Performance</strong></h4><br>
+
+    <table class="table text-white">
+      <thead style="text-align: center;">
+        <tr>
+          <th>Description</th>
+          <th>Employee Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center;"><strong>The employee possess the knowledge and skills required to perform the job well</strong></td>
+          <td class="preference">
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_1" ng-model="emp.rating_1" value="5" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Strongly Agree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_1" ng-model="emp.rating_1" value="4" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Agree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_1" ng-model="emp.rating_1" value="3" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Neutral
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_1" ng-model="emp.rating_1" value="2" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Disagree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_1" ng-model="emp.rating_1" value="1" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Strongly Disagree
+              </label>
+            </div>
+          </td>
+        </tr>
+        <tr>   
+          <td style="text-align: center;"><strong>The employee solves problems independently and promotes efficiency</strong></td>
+          <td class="preference">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_2" ng-model="emp.rating_2" value="5" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Strongly Agree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_2" ng-model="emp.rating_2" value="4" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Agree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_2" ng-model="emp.rating_2" value="3" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Neutral
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_2" ng-model="emp.rating_2" value="2" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Disagree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_2" ng-model="emp.rating_2" value="1" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Strongly Disagree
+              </label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center;"><strong>The employee has a commitment to Service Excellence and Institutional Values</strong></td>
+          <td class="preference">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_3" ng-model="emp.rating_3" value="5" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Strongly Agree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_3" ng-model="emp.rating_3" value="4" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Agree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_3" ng-model="emp.rating_3" value="3" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Neutral
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_3" ng-model="emp.rating_3" value="2" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Disagree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_3" ng-model="emp.rating_3" value="1" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Strongly Disagree
+              </label>
+            </div>
+          </td>
+        </td>
+        <tr>
+          <td style="text-align: center;"><strong>Manages employee conflict in a professional manner</strong></td>
+          <td class="preference">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_4" ng-model="emp.rating_4" value="5" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Strongly Agree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_4" ng-model="emp.rating_4" value="4" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Agree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_4" ng-model="emp.rating_4" value="3" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Neutral
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_4" ng-model="emp.rating_4" value="2" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Disagree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_4" ng-model="emp.rating_4" value="1" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Strongly Disagree
+              </label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center;"><strong>The employee can handle multiple responsibilities well</strong></td>
+          <td class="preference">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_5" ng-model="emp.rating_5" value="5" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Strongly Agree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_5" ng-model="emp.rating_5" value="4" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Agree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_5" ng-model="emp.rating_5" value="3" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Neutral
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_5" ng-model="emp.rating_5" value="2" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Disagree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_5" ng-model="emp.rating_5" value="1" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Strongly Disagree
+              </label>
+            </div>
+          </td>
+
+        </tr>
+        <tr>
+          <td style="text-align: center;"><strong>The employee's overall performance is satisfactory</strong></td>
+          <td class="preference">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_6" ng-model="emp.rating_6" value="5" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Strongly Agree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_6" ng-model="emp.rating_6" value="4" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Agree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_6" ng-model="emp.rating_6" value="3" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Neutral
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_6" ng-model="emp.rating_6" value="2" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Disagree
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating_6" ng-model="emp.rating_6" value="1" required="">
+              <label class="form-check-label" for="exampleRadios1">
+                Strongly Disagree
+              </label>
+            </div>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 style="text-align: center;"><strong>4. Additional Comments</strong></h4><br>
+
+    <!--Material textarea-->
+    <div class="text-center justify-content-center">
+    <div class="md-form amber-textarea active-amber-textarea">
+      <textarea name="remarks" class="remark md-textarea form-control" placeholder="Enter Remarks" rows="6" style="width: 100%;" ng-model="emp.remarks"></textarea>
+      <label for="form19">Additional Comments</label>
+    </div></div>
+    <br>
+
+    <div class = "text-center">
+    <button class="btn btn-primary" ng-click="add(emp)" ng-if="!emp._id" type="submit" ng-disabled="!AppraisalForm.$valid">Submit Form</button>
+            <div class="btn-group">
+              <button class="btn btn-info" ng-click="update(emp)" ng-if="emp._id" type="submit">Update</button>
+              <button class="btn" ng-click="deselect()" ng-if="emp._id">Clear</button>
+            </div>
+    </div>
+    </form>
+    </div>
+  </div>
+
+
+    <!--View Form Part-->
+    <div ng-show='viewCtrl' style="margin-top: 45px;">
+      <h4 style="text-align: center;"><strong>Employee Details</strong></h4><br>
+      <table class="table" style="width:100%;">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th style='text-align: right; margin-right: 50px; padding-right: 50px;'>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Employee ID</td>
+            <td style='text-align: right; margin-right: 50px; padding-right: 50px;'>{{emp.emp_id}}</td>
+          </tr>
+          <tr>
+            <td>Employee Name</td>
+            <td style='text-align: right; margin-right: 50px; padding-right: 50px;'>{{emp.emp_name}}</td>
+          </tr>
+          <tr>
+            <td>Employee Department</td>
+            <td style='text-align: right; margin-right: 50px; padding-right: 50px;'>{{emp.department}}</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <h4 style="text-align: center;"><strong>Manager Details</strong></h4><br>
+      <table class="table" style="width:100%;">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th style='text-align: right; margin-right: 50px; padding-right: 50px;'>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Employee's Manager's ID</td>
+            <td style='text-align: right; margin-right: 50px; padding-right: 50px;'>{{emp.manager_id}}</td>
+          </tr>
+          <tr>
+            <td>Employee's Manager's Name</td>
+            <td style='text-align: right; margin-right: 50px; padding-right: 50px;'>{{emp.manager_name}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="text-align: center;"><strong>Performance Review</strong></h4><br>
+      <table class="table" style="width:100%;">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th style='text-align: right; margin-right: 50px; padding-right: 50px;'>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>The employee possess the knowledge and skills required to perform the job well</strong></td>
+            <td style='text-align: right; margin-right: 50px; padding-right: 50px;'>{{emp.rating_1}} out of 5</td>
+          </tr>
+          <tr>   
+            <td><strong>The employee solves problems independently and promotes efficiency</strong></td>
+            <td style='text-align: right; margin-right: 50px; padding-right: 50px;'>{{emp.rating_2}} out of 5</td>
+            
+          </tr>
+          <tr>
+            <td><strong>The employee has a commitment to Service Excellence and Institutional Values</strong></td>
+            <td style='text-align: right; margin-right: 50px; padding-right: 50px;'>{{emp.rating_3}} out of 5</td>
+          </td>
+          <tr>
+            <td><strong>Manages employee conflict in a professional manner</strong></td>
+            <td style='text-align: right; margin-right: 50px; padding-right: 50px;'>{{emp.rating_4}} out of 5</td>
+          </tr>
+          <tr>
+            <td><strong>The employee can handle multiple responsibilities well</strong></td>
+            <td style='text-align: right; margin-right: 50px; padding-right: 50px;'>{{emp.rating_5}} out of 5</td>
+  
+          </tr>
+          <tr>
+            <td><strong>The employee's overall performance is satisfactory</strong></td>
+            <td style='text-align: right; margin-right: 50px; padding-right: 50px;'>{{emp.rating_6}} out of 5</td>
+          </tr>
+
+          <tr>
+            <td><strong>Additional Remarks</strong></td>
+            <td style='text-align: right; margin-right: 50px; padding-right: 50px;'>{{emp.remarks}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <!--View All Results Part-->
+    <div ng-show='resultCtrl'>
+
+      <div class="card text-center" style="margin-top: 45px;">
+        <div>
+
+          <div class="card-header text-primary">
+            <h3 style="text-align: center;"><strong>Table of Filled Forms</strong></h3>
+          </div>
+          <table class="card-table table">
+            <br>
+            <h4 style="text-align: center;"><strong>Monthly Appraisals</strong></h4>
+            <br>
+            <thead>
+              <tr>
+                <th scope="col">Employee Name</th>
+                <th scope="col">Employee Department</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr ng-repeat="emp in emps" ng-show="emp.eval_type=='Monthly'">
+                <td>{{emp.emp_name}}</td>
+                <td>{{emp.department}}</td>
+                <td>
+                  <button class="btn btn-primary" ng-click="view(emp._id)" style="width: 90px; margin-bottom: 5px;">Open</button>
+                  <button class="btn btn-danger" ng-click="remove(emp)" style="width: 90px; margin-bottom: 5px;">Delete</button>
+                  <button class="btn btn-warning" ng-click="edit(emp._id)" style="width: 90px; margin-bottom: 5px; ">Modify</button>        
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+
+          <table class="card-table table">
+            <br>
+            <h4 style="text-align: center;"><strong>Quarterly Appraisals</strong></h4>
+            <br>
+            <thead>
+              <tr>
+                <th scope="col">Employee Name</th>
+                <th scope="col">Employee Department</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr ng-repeat="emp in emps" ng-show="emp.eval_type=='Quarterly'">
+                <td>{{emp.emp_name}}</td>
+                <td>{{emp.department}}</td>
+                <td>
+                  <button class="btn btn-primary" ng-click="view(emp._id)" style="width: 90px; margin-bottom: 5px;">Open</button>
+                  <button class="btn btn-danger" ng-click="remove(emp)" style="width: 90px; margin-bottom: 5px;">Delete</button>
+                  <button class="btn btn-warning" ng-click="edit(emp._id)" style="width: 90px; margin-bottom: 5px; ">Modify</button>        
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+
+          <table class="card-table table">
+            <br>
+            <h4 style="text-align: center;"><strong>Yearly Appraisals</strong></h4>
+            <br>
+            <thead>
+              <tr>
+                <th scope="col">Employee Name</th>
+                <th scope="col">Employee Department</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr ng-repeat="emp in emps" ng-show="emp.eval_type=='Yearly'">
+                <td>{{emp.emp_name}}</td>
+                <td>{{emp.department}}</td>
+                <td>
+                  <button class="btn btn-primary" ng-click="view(emp._id)" style="width: 90px; margin-bottom: 5px;">Open</button>
+                  <button class="btn btn-danger" ng-click="remove(emp)" style="width: 90px; margin-bottom: 5px;">Delete</button>
+                  <button class="btn btn-warning" ng-click="edit(emp._id)" style="width: 90px; margin-bottom: 5px; ">Modify</button>        
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+      </div>
+    </div>
+
+<script src="js/angular.min.js"></script>
+<script src="js/angular-resource.min.js"></script>
+<script src="js/angular-animate.min.js"></script>
+<script src="js/ngProgress.min.js"></script>
+<script src="js/toaster.js"></script>
+<script src="app/app.js"></script>
+<script src="app/app_logic.js"></script>
+
+</body>
+</html>

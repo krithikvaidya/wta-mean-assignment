@@ -1,0 +1,27 @@
+.center-block { float:none !important; }
+.special-padding { padding:0 40px;}
+
+body { background:#fafafa; }
+
+header { background:#ffed46 center no-repeat; line-height: 76px; margin-bottom: 30px; background-size:12%; border-bottom:1px solid rgba(0,0,0,.0975); position:fixed; left:0; width:100%; top:0; z-index:99; }
+
+.main-form { padding-top:150px;}
+
+.head{padding-top: 20px; padding-bottom: 20px; text-align: center;}
+
+.preference{width: 50%;}
+
+.remark{width: 90%;}
+
+.btn-header{width: 20%; height: 40px;}
+
+.amber-textarea textarea.md-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid green;
+    box-shadow: 0 1px 0 0 green;
+  }
+  .active-amber-textarea.md-form label.active {
+    color: green;
+  }
+  .active-amber-textarea.md-form textarea.md-textarea:focus:not([readonly])+label {
+    color: darkgreen;
+  }

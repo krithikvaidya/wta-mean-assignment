@@ -43,10 +43,19 @@ app.directive('loading',   ['$http', 'ngProgress', function ($http, ngProgress)
 }]);
 
 
-// Create a resource factory to access emp table from database 
+// Manually create a resource factory to access emp table from database 
 app.factory('Emp', function($resource) {
   return $resource('/api/emp/:id', { id: '@_id' }, {
-    update: { // We need to define this method manually as it is not provided with ng-resource
+    update: { 
+      method: 'PUT'
+    }
+  });
+});
+
+// Manually create a resource factory to access user table from database 
+app.factory('User', function($resource) {
+  return $resource('/api/user/:id', { id: '@_id' }, {
+    update: {
       method: 'PUT'
     }
   });

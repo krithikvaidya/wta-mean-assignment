@@ -28,6 +28,47 @@ display: none !important;
 </div>
 
   <div class="container bg main-form" style="margin-top: -100px; padding-top: -100px; background-color: #ffffff;" ng-controller="EmpCtrl">
+    
+    <div class="card text-center" style="margin:auto;" ng-show="!isValidated">
+      <div class=" w3l-login-form text-center">
+        <div class="card-header">Login</div>
+        <form class="card-body" name="loginForm">
+            <div class=" w3l-form-group">
+                <label>Manager Id:</label>
+                <div class="group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="form-control " name="manager_id" placeholder="Manager Id" ng-model = "user.manager_id" required="required" />
+                </div>
+            </div>
+            <br>
+            <div class=" w3l-form-group">
+                <label>Manager Name:</label>
+                <div class="group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="form-control " name="manager_name" placeholder="Manager Name" ng-model="user.username" required="required" />
+                </div>
+            </div>
+            <br>
+            <div class=" w3l-form-group">
+                <label>Password:</label>
+                <div class="group">
+                    <i class="fas fa-unlock"></i>
+                    <input type="password" class="form-control" name="password" placeholder="Password" ng-model="user.password" required="required" />
+                </div>
+            </div><br>
+            <p ng-show="login_error" class="alert alert-danger">Could not Login. Check Details</p>
+            <p ng-show="signup_error" class="alert alert-danger">Could not Signup</p>
+            <button type="submit" class="btn-primary" name="login-submit" ng-show="login" ng-click="Validate()">Login</button>
+            <button type="submit" class="btn-primary" name="login-submit" ng-show="!login" ng-click="AddUser()">Sign Up</button>
+        </form>
+        <p class=" w3l-register-p" ng-show="login">Don't have an account? <a href="#" class="register"  ng-click="signup()">Sign Up</a></p>
+        <p class=" w3l-register-p" ng-show="!login">Already have an account? <a href="#" class="register"  ng-click="log()">Login</a></p>
+    </div>
+    </div>
+
+
+    <div ng-show="isValidated">
+    
     <div class="text-center">
       <button class="btn btn-success" style="margin-bottom: 5px;" ng-click="ShowFill()">Write an Appraisal</button>
       <button class="btn btn-success" style="margin-bottom: 5px;" ng-click="ShowResult()">View Previous Appraisals</button>
@@ -557,7 +598,6 @@ display: none !important;
 
       </div>
     </div>
-
 <script src="js/angular.min.js"></script>
 <script src="js/angular-resource.min.js"></script>
 <script src="js/angular-animate.min.js"></script>
